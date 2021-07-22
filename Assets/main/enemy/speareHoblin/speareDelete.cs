@@ -23,4 +23,13 @@ public class speareDelete : MonoBehaviour
         yield return new WaitForSeconds(deleteTime);
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<Move>().attak = true;
+            Destroy(gameObject);
+        }
+    }
 }

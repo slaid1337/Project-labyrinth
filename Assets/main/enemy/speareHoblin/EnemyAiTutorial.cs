@@ -76,7 +76,11 @@ public class EnemyAiTutorial : MonoBehaviour
         agent.SetDestination(player.position);
         alreadyAttacked = false;
         resetAttakSpeare = false;
-        CancelInvoke("resetAttak");
+        if (IsInvoking("resetAttak"))
+        {
+            CancelInvoke("resetAttak");
+        }
+        
     }
 
     private void AttackPlayer()

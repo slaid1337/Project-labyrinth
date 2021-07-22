@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class Move : MonoBehaviour
@@ -14,11 +15,50 @@ public class Move : MonoBehaviour
     public float gravityValue = -9.81f;
     private PlayerInput PlayerInput;
 
+    public bool attak;
+
+    public GameObject[] fillContainers;
+    public GameObject[] emptyContainers;
+
+    public GameObject empty;
+    public GameObject fill;
+
+    public int maxCurrentHearts;
+    public int currentHearts;
+    public int maxHearts;
 
     private void Start()
     {
         PlayerInput = gameObject.GetComponent<PlayerInput>();
         controller = gameObject.GetComponent<CharacterController>();
+
+        for (int i = 0; i < maxHearts; i++)
+        {
+            fillContainers[i] = fill.transform.GetChild(i).gameObject;
+
+            if (i < maxHearts / 2)
+            {
+                emptyContainers[i] = empty.transform.GetChild(i).gameObject;
+            }
+        }
+
+
+
+        /*spawn hearts in UI*/
+        for (int i = 0; i < maxCurrentHearts; i++)
+        {
+            if (i < currentHearts)
+            {
+                fillContainers[i].GetComponent<Image>().enabled = true;
+            }
+
+            if (i < maxCurrentHearts / 2)
+            {
+                emptyContainers[i].GetComponent<Image>().enabled = true;
+            }
+        }
+        /*spawn hearts in UI*/
+
     }
 
     void Update()
@@ -54,7 +94,28 @@ public class Move : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
         
+        if (attak)
+        {
+            takeDamage();
+        }
+
     }
 
-    
+    public void takeDamage()
+    {
+        currentHearts -= 1;
+        attak = false;
+        if (currentHearts == 0)
+        {
+            fillContainers[currentHearts].GetComponent<Image>().enabled = false;
+            /*dead();*/
+        }
+        else
+        {
+            fillContainers[currentHearts].GetComponent<Image>().enabled = false;
+        }
+        
+        
+    }
+
 }
