@@ -27,10 +27,16 @@ public class Move : MonoBehaviour
     public int currentHearts;
     public int maxHearts;
 
+    public bool hitReset;
+    public float hitResetTime;
+
+
     private void Start()
     {
         PlayerInput = gameObject.GetComponent<PlayerInput>();
         controller = gameObject.GetComponent<CharacterController>();
+
+        hitReset = true;
 
         for (int i = 0; i < maxHearts; i++)
         {
@@ -90,6 +96,15 @@ public class Move : MonoBehaviour
             playerVelocity.y += jumpHeight;
         }
 
+        if (PlayerInput.actions["hit"].triggered && hitReset)
+        {
+            gameObject.transform.GetComponentInChildren<BoxCollider>().enabled = true;
+            gameObject.transform.GetComponentInChildren<sword>().attaked = true;
+            hitReset = false;
+            Invoke("HitReset", hitResetTime);
+        }
+
+
        
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
@@ -100,6 +115,14 @@ public class Move : MonoBehaviour
         }
 
     }
+
+    public void HitReset()
+    {
+        hitReset = true;
+    }
+
+
+
 
     public void takeDamage()
     {
@@ -113,9 +136,9 @@ public class Move : MonoBehaviour
         else
         {
             fillContainers[currentHearts].GetComponent<Image>().enabled = false;
-        }
-        
-        
+        }  
     }
+
+    
 
 }

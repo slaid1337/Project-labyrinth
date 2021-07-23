@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8934310309167509324}
   m_Layer: 0
   m_Name: speareHoblin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,11 +140,12 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
-  health: 120
+  health: 2
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 2.5
-  projectile: {fileID: 8835818338817481328, guid: ca6581e8a6e53764ba3c5beb210d2061, type: 3}
+  projectile: {fileID: 8835818338817481328, guid: ca6581e8a6e53764ba3c5beb210d2061,
+    type: 3}
   sightRange: 13.6
   attackRange: 10
   playerInSightRange: 0

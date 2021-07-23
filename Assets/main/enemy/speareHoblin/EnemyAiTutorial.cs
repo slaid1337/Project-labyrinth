@@ -10,7 +10,9 @@ public class EnemyAiTutorial : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    public float health;
+    public int health;
+
+
 
     //Patroling
     public Vector3 walkPoint;
@@ -120,6 +122,7 @@ public class EnemyAiTutorial : MonoBehaviour
 
         if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
+
     private void DestroyEnemy()
     {
         Destroy(gameObject);
@@ -133,7 +136,7 @@ public class EnemyAiTutorial : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
-    
 
     
+
 }
