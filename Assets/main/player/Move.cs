@@ -34,6 +34,9 @@ public class Move : MonoBehaviour
     public Vector3 kickDirection;
     public float kickForce;
 
+    public int damage;
+
+
     private void Start()
     {
         PlayerInput = gameObject.GetComponent<PlayerInput>();
@@ -116,7 +119,7 @@ public class Move : MonoBehaviour
 
             if (attak)
             {
-                takeDamage();
+                takeDamage(damage);
             }
         }
         if(kick)
@@ -134,9 +137,9 @@ public class Move : MonoBehaviour
 
 
 
-    public void takeDamage()
+    public void takeDamage(int damage)
     {
-        currentHearts -= 1;
+        currentHearts -= damage;
         attak = false;
         if (currentHearts == 0)
         {
