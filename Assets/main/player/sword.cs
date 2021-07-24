@@ -13,7 +13,7 @@ public class sword : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            var a = other.gameObject.GetComponent<EnemyAiTutorial>();
+            var a = other.gameObject.GetComponent<enemyController>();
             a.TakeDamage(damage);
         }
         Debug.Log("HIT");

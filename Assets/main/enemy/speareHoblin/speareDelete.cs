@@ -29,6 +29,7 @@ public class speareDelete : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<Move>().attak = true;
+            other.gameObject.GetComponent<Move>().kickDirection = gameObject.transform.forward;
             Destroy(gameObject);
         }
     }

@@ -30,6 +30,9 @@ public class Move : MonoBehaviour
     public bool hitReset;
     public float hitResetTime;
 
+    public bool kick;
+    public Vector3 kickDirection;
+    public float kickForce;
 
     private void Start()
     {
@@ -69,49 +72,56 @@ public class Move : MonoBehaviour
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (!kick)
         {
-            playerVelocity.y = -1.0f;
+            groundedPlayer = controller.isGrounded;
+
+            if (groundedPlayer && playerVelocity.y < 0)
+            {
+                playerVelocity.y = -1.0f;
+            }
+
+
+
+            Vector2 input = PlayerInput.actions["Move"].ReadValue<Vector2>();
+            Vector3 move = new Vector3(input.x, 0, input.y);
+            controller.Move(move * Time.deltaTime * playerSpeed);
+
+
+
+            if (move != Vector3.zero)
+            {
+                gameObject.transform.forward = move;
+            }
+
+
+
+            if (groundedPlayer && PlayerInput.actions["jump"].triggered)
+            {
+                playerVelocity.y += jumpHeight;
+            }
+
+            if (PlayerInput.actions["hit"].triggered && hitReset)
+            {
+                gameObject.transform.GetComponentInChildren<BoxCollider>().enabled = true;
+                gameObject.transform.GetComponentInChildren<sword>().attaked = true;
+                hitReset = false;
+                Invoke("HitReset", hitResetTime);
+            }
+
+
+
+            playerVelocity.y += gravityValue * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);
+
+            if (attak)
+            {
+                takeDamage();
+            }
         }
-
-
-
-        Vector2 input = PlayerInput.actions["Move"].ReadValue<Vector2>();
-        Vector3 move = new Vector3(input.x, 0, input.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-
-
-        if (move != Vector3.zero)
+        if(kick)
         {
-            gameObject.transform.forward = move;
-        }
-
-        
-
-        if (groundedPlayer && PlayerInput.actions["jump"].triggered)
-        {               
-            playerVelocity.y += jumpHeight;
-        }
-
-        if (PlayerInput.actions["hit"].triggered && hitReset)
-        {
-            gameObject.transform.GetComponentInChildren<BoxCollider>().enabled = true;
-            gameObject.transform.GetComponentInChildren<sword>().attaked = true;
-            hitReset = false;
-            Invoke("HitReset", hitResetTime);
-        }
-
-
-       
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-        
-        if (attak)
-        {
-            takeDamage();
+            controller.SimpleMove(kickDirection * kickForce);
         }
 
     }
@@ -136,9 +146,15 @@ public class Move : MonoBehaviour
         else
         {
             fillContainers[currentHearts].GetComponent<Image>().enabled = false;
+            kick = true;
+            Invoke("kickOff", 0.1f);
         }  
     }
 
     
+    private void kickOff()
+    {
+        kick = false;
+    }
 
 }

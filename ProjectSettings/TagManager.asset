@@ -8,6 +8,7 @@ TagManager:
   - test
   - sword
   - Enemy
+  - speare
   layers:
   - Default
   - TransparentFX
