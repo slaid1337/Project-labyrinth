@@ -112,9 +112,10 @@ public class swordGoblinController : MonoBehaviour
         if (Physics.Raycast(transform.position, gameObject.transform.forward, out hit))
         {
 
-            if(alreadyAttacked && hit.collider.gameObject.tag == "Player")
+            if(alreadyAttacked && (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "playerShield"))
             {
                 sword.GetComponent<swordGController>().attak = true;
+                alreadyAttacked = false;
             }
         }
 

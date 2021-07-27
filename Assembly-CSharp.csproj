@@ -58,15 +58,18 @@
     <Compile Include="Assets\Shared\Scripts\ProximityActivate.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\main\enemy\speareGoblin\enemyController.cs" />
+    <Compile Include="Assets\main\player\PlayerCont.cs" />
     <Compile Include="Assets\Shared\Scripts\AdjustTimeScale.cs" />
+    <Compile Include="Assets\main\enemy\swordGoblin\swordGoblinController.cs" />
+    <Compile Include="Assets\main\enemy\swordGoblin\swordGController.cs" />
     <Compile Include="Assets\Shared\Ramps\Runtime\RampAsset.cs" />
     <Compile Include="Assets\Shared\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\main\player\sword.cs" />
     <Compile Include="Assets\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
     <Compile Include="Assets\main\player\Move.cs" />
+    <Compile Include="Assets\main\player\tts.cs" />
     <Compile Include="Assets\main\player\CameraTarget.cs" />
-    <Compile Include="Assets\main\enemy\swordGoblin\swordGoblinController.cs" />
-    <Compile Include="Assets\main\enemy\swordGoblin\swordGController.cs" />
+    <Compile Include="Assets\main\player\shield.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

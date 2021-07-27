@@ -16,7 +16,12 @@ public class sword : MonoBehaviour
             var a = other.gameObject.GetComponent<enemyController>();
             a.TakeDamage(damage);
         }
-        Debug.Log("HIT");
+        else if (other.gameObject.tag == "swordGoblin")
+        {
+            var a = other.gameObject.GetComponent<swordGoblinController>();
+            a.TakeDamage(damage);
+        }
+
     }
 
 

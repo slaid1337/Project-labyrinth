@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "shield",
+                    "type": "Button",
+                    "id": "7e29965d-9672-4b0e-b8f6-4ee3858f62b8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -83,6 +91,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "hit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "396216bd-0c76-4157-9f97-d3448b4ba762",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c75de5ab-dc30-4e12-bd3a-42b19f0aac2e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "shield",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

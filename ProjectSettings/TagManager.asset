@@ -9,6 +9,8 @@ TagManager:
   - sword
   - Enemy
   - speare
+  - swordGoblin
+  - playerShield
   layers:
   - Default
   - TransparentFX

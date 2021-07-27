@@ -9,11 +9,13 @@ public class Move : MonoBehaviour
 {
     private CharacterController controller;
     private Vector3 playerVelocity;
-    private bool groundedPlayer;
+    public bool groundedPlayer;
     public float playerSpeed = 2.0f;
     public float jumpHeight = 5.0f;
     public float gravityValue = -9.81f;
     private PlayerInput PlayerInput;
+
+    public PlayerCont PlayerCont;
 
     public bool attak;
 
@@ -36,9 +38,17 @@ public class Move : MonoBehaviour
 
     public int damage;
 
+    public bool shieldActive;
+
+    private void Awake()
+    {
+        PlayerCont = new PlayerCont();
+    }
+
 
     private void Start()
     {
+        
         PlayerInput = gameObject.GetComponent<PlayerInput>();
         controller = gameObject.GetComponent<CharacterController>();
 
@@ -71,12 +81,40 @@ public class Move : MonoBehaviour
         }
         /*spawn hearts in UI*/
 
+
+        PlayerCont.Player.shield.started += ctx => shieldUp(ctx);
+        PlayerCont.Player.shield.canceled += ctx => shieldDown(ctx);
+    }
+
+    private void OnEnable()
+    {
+        PlayerCont.Enable();
+    }
+
+
+    private void OnDisable()
+    {
+        PlayerCont.Disable();
+    }
+
+    private void shieldDown(InputAction.CallbackContext context)
+    {
+        gameObject.transform.GetChild(1).GetComponent<BoxCollider>().enabled = false;
+        shieldActive = false;
+    }
+
+    private void shieldUp(InputAction.CallbackContext context)
+    {
+        gameObject.transform.GetChild(1).GetComponent<BoxCollider>().enabled = true;
+        shieldActive = true;
     }
 
     void Update()
     {
+        
         if (!kick)
         {
+
             groundedPlayer = controller.isGrounded;
 
             if (groundedPlayer && playerVelocity.y < 0)
@@ -84,22 +122,19 @@ public class Move : MonoBehaviour
                 playerVelocity.y = -1.0f;
             }
 
-
-
             Vector2 input = PlayerInput.actions["Move"].ReadValue<Vector2>();
             Vector3 move = new Vector3(input.x, 0, input.y);
             controller.Move(move * Time.deltaTime * playerSpeed);
-
-
 
             if (move != Vector3.zero)
             {
                 gameObject.transform.forward = move;
             }
 
+            
+            
 
-
-            if (groundedPlayer && PlayerInput.actions["jump"].triggered)
+                if (groundedPlayer && PlayerInput.actions["jump"].triggered)
             {
                 playerVelocity.y += jumpHeight;
             }
@@ -122,12 +157,18 @@ public class Move : MonoBehaviour
                 takeDamage(damage);
             }
         }
-        if(kick)
+        else if(kick)
         {
+            
             controller.SimpleMove(kickDirection * kickForce);
+            Invoke("kickOff", 0.1f);
         }
 
     }
+
+
+
+
 
     public void HitReset()
     {
@@ -149,8 +190,7 @@ public class Move : MonoBehaviour
         else
         {
             fillContainers[currentHearts].GetComponent<Image>().enabled = false;
-            kick = true;
-            Invoke("kickOff", 0.1f);
+            kick = true;        
         }  
     }
 
@@ -159,5 +199,8 @@ public class Move : MonoBehaviour
     {
         kick = false;
     }
+
+    
+
 
 }

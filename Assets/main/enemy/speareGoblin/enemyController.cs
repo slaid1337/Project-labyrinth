@@ -108,12 +108,12 @@ public class enemyController : MonoBehaviour
                 resetAttakSpeare = true;
             }
 
-            if (alreadyAttacked && (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "speare"))
+            if (alreadyAttacked && (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "speare" || hit.collider.gameObject.tag == "playerShield"))
             {
                 Instantiate(speare, transform.position, Quaternion.identity).GetComponent<speareDelete>().player = player;
                 alreadyAttacked = false;
             }
-            else if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "speare")
+            else if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "speare" && hit.collider.gameObject.tag != "playerShield")
             {
                 ChasePlayer();
             }
