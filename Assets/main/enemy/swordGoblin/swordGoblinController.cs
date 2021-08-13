@@ -95,6 +95,11 @@ public class swordGoblinController : MonoBehaviour
             CancelInvoke("resetAttak");
         }
 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, gameObject.transform.forward, out hit))
+        {
+            Debug.Log(hit.collider.gameObject.tag);
+        }
     }
 
     private void AttackPlayer()
@@ -117,6 +122,11 @@ public class swordGoblinController : MonoBehaviour
                 sword.GetComponent<swordGController>().attak = true;
                 alreadyAttacked = false;
             }
+            else if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "playerShield" && hit.collider.gameObject.tag != "Untagged" )
+            {
+                ChasePlayer();
+            }
+            Debug.Log(hit.collider.gameObject.tag);
         }
 
     }

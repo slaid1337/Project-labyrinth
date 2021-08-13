@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 2094325947630110581}
   - component: {fileID: 2094325947630110580}
   - component: {fileID: 2094325947630110583}
-  - component: {fileID: 2094325947630110587}
   - component: {fileID: 493384169801169159}
   - component: {fileID: 2094325947630110576}
   - component: {fileID: 2094325947630110584}
@@ -197,20 +196,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!136 &2094325947630110587
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2094325947630110586}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &493384169801169159
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -237,9 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92df8e2270954554cbe2df985041e5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundedPlayer: 0
   playerSpeed: 10
   jumpHeight: 25
   gravityValue: -90.81
+  PlayerInput: {fileID: 0}
   attak: 0
   fillContainers: []
   emptyContainers: []
@@ -255,6 +242,8 @@ MonoBehaviour:
   kickForce: 0
   damage: 0
   shieldActive: 0
+  arrow: {fileID: 2338927160519788033, guid: 8021a348eb408ba44bbcbfc1f3acac61, type: 3}
+  shootReset: 0
 --- !u!143 &2094325947630110584
 CharacterController:
   m_ObjectHideFlags: 0

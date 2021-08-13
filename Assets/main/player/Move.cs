@@ -13,7 +13,7 @@ public class Move : MonoBehaviour
     public float playerSpeed = 2.0f;
     public float jumpHeight = 5.0f;
     public float gravityValue = -9.81f;
-    private PlayerInput PlayerInput;
+    public PlayerInput PlayerInput;
 
     public PlayerCont PlayerCont;
 
@@ -39,6 +39,10 @@ public class Move : MonoBehaviour
     public int damage;
 
     public bool shieldActive;
+    
+    public GameObject arrow;
+
+    public bool shootReset;
 
     private void Awake()
     {
@@ -53,6 +57,7 @@ public class Move : MonoBehaviour
         controller = gameObject.GetComponent<CharacterController>();
 
         hitReset = true;
+        shootReset = true;
 
         for (int i = 0; i < maxHearts; i++)
         {
@@ -147,7 +152,12 @@ public class Move : MonoBehaviour
                 Invoke("HitReset", hitResetTime);
             }
 
-
+            if (PlayerInput.actions["Bow"].triggered && shootReset)
+            {
+                Instantiate(arrow, gameObject.transform.position, gameObject.transform.rotation);
+                shootReset = false;
+                StartCoroutine(ShootReset(1f));
+            }
 
             playerVelocity.y += gravityValue * Time.deltaTime;
             controller.Move(playerVelocity * Time.deltaTime);
@@ -200,7 +210,11 @@ public class Move : MonoBehaviour
         kick = false;
     }
 
-    
+    IEnumerator ShootReset(float shootTime)
+    {       
+        yield return new WaitForSeconds(shootTime);
+        shootReset = true;
+    }
 
 
 }

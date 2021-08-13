@@ -49,6 +49,30 @@ public class @PlayerCont : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Bow"",
+                    ""type"": ""Button"",
+                    ""id"": ""09d1272a-b702-418d-8afd-d0e16c13341e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""0cf69a14-9b79-440a-b6d9-624f84586418"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Water"",
+                    ""type"": ""Button"",
+                    ""id"": ""df0b4428-1d48-4aef-9dec-bb495509b475"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -99,7 +123,7 @@ public class @PlayerCont : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0d47f6e9-5a96-4068-81f6-91fdd102fee3"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -128,6 +152,72 @@ public class @PlayerCont : IInputActionCollection, IDisposable
                     ""action"": ""shield"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5210a424-92b5-4243-9138-b0b8a87a7014"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10845a53-e84c-415a-8ab8-777d5b2ea0aa"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""756a08c7-7572-480b-818f-8f1d28641c66"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac762fda-83d3-4ae0-9563-1b9bcb515c59"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3429a9da-4b30-4924-b703-0252c80407f6"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Water"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee9c9e3f-7b61-4e83-8440-b0ef411e3ebd"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Water"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -140,6 +230,9 @@ public class @PlayerCont : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_hit = m_Player.FindAction("hit", throwIfNotFound: true);
         m_Player_shield = m_Player.FindAction("shield", throwIfNotFound: true);
+        m_Player_Bow = m_Player.FindAction("Bow", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_Water = m_Player.FindAction("Water", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -193,6 +286,9 @@ public class @PlayerCont : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_hit;
     private readonly InputAction m_Player_shield;
+    private readonly InputAction m_Player_Bow;
+    private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_Water;
     public struct PlayerActions
     {
         private @PlayerCont m_Wrapper;
@@ -201,6 +297,9 @@ public class @PlayerCont : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @hit => m_Wrapper.m_Player_hit;
         public InputAction @shield => m_Wrapper.m_Player_shield;
+        public InputAction @Bow => m_Wrapper.m_Player_Bow;
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @Water => m_Wrapper.m_Player_Water;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -222,6 +321,15 @@ public class @PlayerCont : IInputActionCollection, IDisposable
                 @shield.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
                 @shield.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
                 @shield.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
+                @Bow.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBow;
+                @Bow.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBow;
+                @Bow.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBow;
+                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Water.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWater;
+                @Water.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWater;
+                @Water.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWater;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -238,6 +346,15 @@ public class @PlayerCont : IInputActionCollection, IDisposable
                 @shield.started += instance.OnShield;
                 @shield.performed += instance.OnShield;
                 @shield.canceled += instance.OnShield;
+                @Bow.started += instance.OnBow;
+                @Bow.performed += instance.OnBow;
+                @Bow.canceled += instance.OnBow;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
+                @Water.started += instance.OnWater;
+                @Water.performed += instance.OnWater;
+                @Water.canceled += instance.OnWater;
             }
         }
     }
@@ -248,5 +365,8 @@ public class @PlayerCont : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnHit(InputAction.CallbackContext context);
         void OnShield(InputAction.CallbackContext context);
+        void OnBow(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
+        void OnWater(InputAction.CallbackContext context);
     }
 }
